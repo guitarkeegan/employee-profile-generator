@@ -1,3 +1,41 @@
+const inquirer = require("inquirer");
+const fs = require("fs");
+
+questions = [
+    {
+        type: "input",
+        name: "managerName",
+        message: "Who is the team manager? "
+    }, 
+    {
+        type: "input",
+        name: "id",
+        message: "What is their employee id? "
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is their email address? "
+    },
+    {
+        type: "input",
+        name: "managerName",
+        message: "Who is the team manager? "
+    },
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "What is their office number? "
+    },
+    {
+        type: "list",
+        name: "addTeamMember",
+        message: "Would you like to add a team member? ",
+        choices: ["add engineer", "add intern", "I'm finished building the team"]
+    },
+]
+
+
 // GIVEN a command-line application that accepts user input
 // WHEN I am prompted for my team members and their information
 // THEN an HTML file is generated that displays a nicely formatted team roster based on user input
