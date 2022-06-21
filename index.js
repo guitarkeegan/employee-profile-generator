@@ -1,6 +1,7 @@
-const inquirer = require("inquirer");
-const fs = require("fs");
+const inquirer = require("inquirer")
+// const fs = require("fs");
 const {Employee, Manager, Engineer, Intern} = require("./lib/classes");
+const employees = []
 
 managerQuestions = [
     {
@@ -32,41 +33,65 @@ const moreQuestions = [
         choices: ["add engineer", "add intern", "I'm finished building the team"]
     }
 ]
-const initialQuestions = managerQuestions.splice(3)
+const initialQuestions = managerQuestions.slice(1,3)
 const engineerQuestion = [
-    [...initialQuestions],
+    {
+        type: "input",
+        message: "What is your employee's name?",
+        name: "empName"
+    },
+    ...initialQuestions,
     {
         type: "input",
         name: "github",
         message: "What is their github username? "
     }
 ]
+// console.log(engineerQuestion)
 const internQuestions = [
-    [...initialQuestions],
+    ...initialQuestions,
     {
         type: "input",
         name: "school",
         message: "Which school is the intern attending? "
     }
 ]
-inquirer.prompt(managerQuestions)
-.then(answers=>{
-    const {managerName, id, email, officeNumber} = answers;
-    const manager = new Manager(managerName, id, email, officeNumber)
-    // send to html generator
-});
 
-inquirer.prompt(moreQuestions)
-.then(answers=>{
-    if (answers.addTeamMember === "add engineer"){
-        engineerSetup() // will call the prompt with engineer questions
-    } else if (answers.addTeamMember === "add intern"){
-        internSetup() // call prompt with intern questions
-    } else {
-        // create html
-    }
-})
+function start() {
 
+    inquirer.prompt(managerQuestions)
+    .then(answers=>{
+        const {managerName, id, email, officeNumber} = answers;
+        const manager = new Manager(managerName, id, email, officeNumber)
+        employees.push(manager)
+        mainMenu()
+        // send to html generator
+    });
+}
+
+function mainMenu() {
+
+    inquirer.prompt(moreQuestions)
+    .then(answers=>{
+        if (answers.addTeamMember === "add engineer"){
+            engineerSetup() // will call the prompt with engineer questions
+        } else if (answers.addTeamMember === "add intern"){
+            internSetup() // call prompt with intern questions
+        } else {
+            // create html
+        }
+    })
+}
+
+function engineerSetup() {
+    inquirer.prompt(engineerQuestion)
+    .then(engineerAnswers => {
+        console.log(engineerAnswers)
+        mainMenu()
+    })
+}
+
+start()
 // TODO: export variables to template-helper.js
 // TODO: Create engineerSetup and InternSetup functions
 
