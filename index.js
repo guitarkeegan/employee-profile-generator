@@ -1,5 +1,6 @@
 const inquirer = require("inquirer")
 const fs = require("fs");
+const _ = require("lodash");
 const {Employee, Manager, Engineer, Intern} = require("./lib/classes");
 const {createHtmlTop, createCard, createHtmlBottom} = require("./src/template-helper");
 const employees = []
@@ -18,12 +19,29 @@ managerQuestions = [
     {
         type: "input",
         name: "email",
-        message: "What is their email address? "
+        message: "What is their email address? ", 
+        validate: value=>{
+            // not perfect, but should ensure that it is in email format.
+            const isEmail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.+[a-zA-Z0-9-]/.test(value);
+            if (isEmail){
+                return isEmail
+            } else {
+                return "Please enter a valid email address";
+            }
+        }
     },
     {
         type: "input",
         name: "officeNumber",
-        message: "What is their office number? "
+        message: "What is their office number? ",
+        validate: value=>{
+            const number = !isNaN(value);
+            if (number && value){
+                return true;
+            } else {
+                return "Must enter a number."
+            }
+        }
     }
 ]
 const moreQuestions = [
@@ -63,15 +81,17 @@ const internQuestions = [
 ]
 
 function start() {
-
+    
     inquirer.prompt(managerQuestions)
     .then(answers=>{
+        let managerNameCheck;
         const {managerName, id, email, officeNumber} = answers;
-        const manager = new Manager(managerName, id, email, officeNumber)
+        managerNameCheck = _.startCase(managerName);
+        const manager = new Manager(managerNameCheck, id, email, officeNumber)
         employees.push(manager)
         mainMenu()
-    });
-}
+        })
+    }
 
 function mainMenu() {
 
@@ -90,18 +110,18 @@ function mainMenu() {
 function engineerSetup() {
     inquirer.prompt(engineerQuestion)
     .then(engineerAnswers => {
-        const {name, id, email, github} = engineerAnswers;
-        const newEngineer = new Engineer(name, id, email, github);
+        const {empName, id, email, github} = engineerAnswers;
+        const newEngineer = new Engineer(empName, id, email, github);
         employees.push(newEngineer)
         mainMenu()
     })
 }
 
 function internSetup(){
-    prompt(internQuestions)
+    inquirer.prompt(internQuestions)
     .then(internAnswers=>{
-        const {name, id, email, school} = internAnswers;
-        const newIntern = new Intern(name, id, email, school);
+        const {intName, id, email, school} = internAnswers;
+        const newIntern = new Intern(intName, id, email, school);
         employees.push(newIntern);
         mainMenu();
     })
