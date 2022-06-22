@@ -37,7 +37,7 @@ const initialQuestions = managerQuestions.slice(1,3)
 const engineerQuestion = [
     {
         type: "input",
-        message: "What is your employee's name?",
+        message: "What is your employee's name? ",
         name: "empName"
     },
     ...initialQuestions,
@@ -47,8 +47,12 @@ const engineerQuestion = [
         message: "What is their github username? "
     }
 ]
-// console.log(engineerQuestion)
 const internQuestions = [
+    {
+        type: "input",
+        name: "intName",
+        message: "What is the intern's name? "
+    }, 
     ...initialQuestions,
     {
         type: "input",
@@ -65,7 +69,6 @@ function start() {
         const manager = new Manager(managerName, id, email, officeNumber)
         employees.push(manager)
         mainMenu()
-        // send to html generator
     });
 }
 
@@ -78,7 +81,7 @@ function mainMenu() {
         } else if (answers.addTeamMember === "add intern"){
             internSetup() // call prompt with intern questions
         } else {
-            // create html
+            createHtml();
         }
     })
 }
@@ -86,8 +89,20 @@ function mainMenu() {
 function engineerSetup() {
     inquirer.prompt(engineerQuestion)
     .then(engineerAnswers => {
-        console.log(engineerAnswers)
+        const {name, id, email, github} = engineerAnswers;
+        const newEngineer = new Engineer(name, id, email, github);
+        employees.push(newEngineer)
         mainMenu()
+    })
+}
+
+function internSetup(){
+    prompt(internQuestions)
+    .then(internAnswers=>{
+        const {name, id, email, school} = internAnswers;
+        const newIntern = new Intern(name, id, email, school);
+        employees.push(newIntern);
+        mainMenu();
     })
 }
 
