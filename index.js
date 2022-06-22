@@ -1,6 +1,7 @@
 const inquirer = require("inquirer")
-// const fs = require("fs");
+const fs = require("fs");
 const {Employee, Manager, Engineer, Intern} = require("./lib/classes");
+const {createHtmlTop, createCard, createHtmlBottom} = require("./src/template-helper");
 const employees = []
 
 managerQuestions = [
@@ -104,6 +105,27 @@ function internSetup(){
         employees.push(newIntern);
         mainMenu();
     })
+}
+
+function createHtml(){
+    const newFilePath = "./dist/team-directory.html"
+    fs.writeFile(newFilePath, createHtmlTop(), (err)=>{
+        if (err){
+            console.log(err);
+        }
+    });
+    employees.forEach(employee=>{
+        fs.appendFile(newFilePath, createCard(employee), (err)=>{
+            if (err){
+                console.log(err);
+            }
+        })
+    });
+    fs.appendFile(newFilePath, createHtmlBottom(), (err)=>{
+        if (err){
+            console.log(err);
+        }
+    });
 }
 
 start()
