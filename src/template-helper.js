@@ -33,18 +33,6 @@ function createCard(employee){
         specialCharactaristic = employee.getSchool();
         githubProfile = "#";
     }
-
-    console.log(`
-    <div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">${employee.getName()}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">${employee.getRole()}</h6>
-    <p class="card-text">${specialCharactaristic}</p>
-    <a href="${employee.getEmail()}" class="card-link">email</a>
-    <a href="${githubProfile}" class="card-link">${githubUsername}</a>
-  </div>
-</div>
-    `)
     return `
     <div class="card" style="width: 18rem;">
   <div class="card-body">
@@ -59,11 +47,6 @@ function createCard(employee){
 }
 
 function createHtmlBottom(){
-    console.log( `
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    </body>
-  </html>
-    `)
     return  `
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     </body>
