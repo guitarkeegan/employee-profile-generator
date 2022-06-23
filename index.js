@@ -110,8 +110,10 @@ function mainMenu() {
 function engineerSetup() {
     inquirer.prompt(engineerQuestion)
     .then(engineerAnswers => {
+        let engineerNameCheck;
         const {empName, id, email, github} = engineerAnswers;
-        const newEngineer = new Engineer(empName, id, email, github);
+        engineerNameCheck = _.startCase(empName);
+        const newEngineer = new Engineer(engineerNameCheck, id, email, github);
         employees.push(newEngineer)
         mainMenu()
     })
@@ -120,8 +122,12 @@ function engineerSetup() {
 function internSetup(){
     inquirer.prompt(internQuestions)
     .then(internAnswers=>{
+        let internNameCheck;
+        let schoolNameCheck;
         const {intName, id, email, school} = internAnswers;
-        const newIntern = new Intern(intName, id, email, school);
+        internNameCheck = _.startCase(intName);
+        schoolNameCheck = _.startCase(school);
+        const newIntern = new Intern(internNameCheck, id, email, schoolNameCheck);
         employees.push(newIntern);
         mainMenu();
     })
@@ -139,13 +145,16 @@ function createHtml(){
             if (err){
                 console.log(err);
             }
-        })
+        });
     });
-    fs.appendFile(newFilePath, createHtmlBottom(), (err)=>{
-        if (err){
-            console.log(err);
-        }
-    });
+    setTimeout(() => {
+        fs.appendFile(newFilePath, createHtmlBottom(), (err)=>{
+            if (err){
+                console.log(err);
+            }
+        });
+    }, 500);
+    
 }
 
 start()

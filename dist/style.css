@@ -1,0 +1,29 @@
+:root{
+    --engeneer-yellow: rgb(200, 200, 60);
+    --commander-red: rgb(180, 60, 80);
+    --medical-blue: rgb(75, 130, 170);
+}
+
+body{
+    background-color: black;
+}
+
+h1, h5, h6, p, a {
+    color: white;
+}
+
+.card-subtitle{
+    font-size: 1.5rem;
+}
+
+.Manager{
+    background-color: var(--commander-red);
+}
+
+.Engineer{
+    background-color: var(--engeneer-yellow);
+}
+
+.Intern{
+    background-color: var(--medical-blue);
+}

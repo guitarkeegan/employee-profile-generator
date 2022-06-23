@@ -8,20 +8,20 @@ function createHtmlTop(){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Employee Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-    <h1 class='mx-auto'>Team Cards</h1>
-    <div class='container row'>
-      <div class='col-md-4'>
-        
-      </div>
+    <div class='container text-center my-3'>
+    <h1>Team Cards</h1>
     </div>
+    <div class='container-fluid d-flex mt-4 gap-2 justify-content-center flex-wrap'>
     `
 }
 
 function createCard(employee){
     let specialCharactaristic = "";
     let githubProfile = "http://github.com/";
+    let github;
     let githubUsername = "";
     if (employee.officeNumber){
         specialCharactaristic = "Office # " +  employee.officeNumber;
@@ -34,13 +34,13 @@ function createCard(employee){
         githubProfile = "#";
     }
     return `
-    <div class="card" style="width: 18rem;">
+    <div class="card ${employee.getRole()} col-3" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">${employee.getName()}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">${employee.getRole()}</h6>
-    <p class="card-text">${specialCharactaristic}</p>
-    <a href="${employee.getEmail()}" class="card-link">email</a>
-    <a href="${githubProfile}" class="card-link">${githubUsername}</a>
+    <h6 class="card-subtitle mb-2">${employee.getRole()}</h6>
+    <p class="card-text"><a href="${githubProfile}" class="card-link">${githubUsername}</a>${specialCharactaristic}</p>
+    <a href="mailto:${employee.getEmail()}" class="card-link">email</a>
+    
   </div>
 </div>
     `
@@ -48,7 +48,10 @@ function createCard(employee){
 
 function createHtmlBottom(){
     return  `
+    </div>
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
     </body>
   </html>
     `
