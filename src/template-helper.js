@@ -21,12 +21,13 @@ function createHtmlTop(){
 function createCard(employee){
     let specialCharactaristic = "";
     let githubProfile = "http://github.com/";
-    let github;
     let githubUsername = "";
+    let github = "";
     if (employee.officeNumber){
         specialCharactaristic = "Office # " +  employee.officeNumber;
         githubProfile = "#";
     } else if (employee.github){
+        github = "Github: "
         githubProfile += employee.getGithub();
         githubUsername = employee.getGithub();
     } else {
@@ -38,7 +39,7 @@ function createCard(employee){
   <div class="card-body">
     <h5 class="card-title">${employee.getName()}</h5>
     <h6 class="card-subtitle mb-2">${employee.getRole()}</h6>
-    <p class="card-text"><a href="${githubProfile}" class="card-link">${githubUsername}</a>${specialCharactaristic}</p>
+    <p class="card-text">${github}<a target="_blank" rel="noopener noreferrer" href="${githubProfile}" class="card-link">${githubUsername}</a>${specialCharactaristic}</p>
     <a href="mailto:${employee.getEmail()}" class="card-link">email</a>
     
   </div>

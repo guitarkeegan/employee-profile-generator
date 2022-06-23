@@ -14,7 +14,15 @@ managerQuestions = [
     {
         type: "input",
         name: "id",
-        message: "What is their employee id? "
+        message: "What is their employee id? ",
+        validate: value=>{
+            const number = !isNaN(value);
+            if (number && value){
+                return true;
+            } else {
+                return "Must enter a number."
+            }
+        }
     },
     {
         type: "input",
@@ -153,7 +161,7 @@ function createHtml(){
                 console.log(err);
             }
         });
-    }, 500);
+    }, 1000);
     
 }
 
