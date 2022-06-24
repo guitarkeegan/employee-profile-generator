@@ -1,3 +1,4 @@
+/* create variables for start trek themed colors */
 :root{
     --engeneer-yellow: rgb(200, 200, 60);
     --commander-red: rgb(180, 60, 80);
@@ -15,7 +16,7 @@ h1, h5, h6, p, a {
 .card-subtitle{
     font-size: 1.5rem;
 }
-
+/* color cards based on role of employee */
 .Manager{
     background-color: var(--commander-red);
 }

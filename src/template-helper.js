@@ -1,5 +1,6 @@
 function createHtmlTop(){
-    
+    // create the top portion of the html, including the container
+    // where the cards will go.
     return `
     <!doctype html>
 <html lang="en">
@@ -17,7 +18,7 @@ function createHtmlTop(){
     <div class='container-fluid d-flex mt-4 gap-2 justify-content-center flex-wrap'>
     `
 }
-
+// will create each card, based on the type of employee
 function createCard(employee){
     let specialCharactaristic = "";
     let githubProfile = "http://github.com/";
@@ -46,18 +47,17 @@ function createCard(employee){
 </div>
     `
 }
-
+// Close the container div, then finish with the remainder of the html.
 function createHtmlBottom(){
     return  `
     </div>
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script src="./script.js"></script>
     </body>
   </html>
     `
 }
-
+// export to be called index.js
 module.exports = {
     createHtmlTop,
     createCard, 
