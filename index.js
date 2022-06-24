@@ -3,6 +3,7 @@ const fs = require("fs");
 const _ = require("lodash");
 const {Employee, Manager, Engineer, Intern} = require("./lib/classes");
 const {createHtmlTop, createCard, createHtmlBottom} = require("./src/template-helper");
+const { setTimeout } = require("timers");
 // employee objects will be stored here
 const employees = []
 // questions to create the manager object
@@ -162,16 +163,16 @@ function createHtml(){
                 console.log(err);
             }
         });
+
     });
-    // use the setTimeout as a work-around incase the for-loop hasn't
-    // finished before the the bottom html is appended.
-    setTimeout(() => {
+    // 😭😭😭😭😭😭😭😭😭😭😭
+    setTimeout(()=>{
         fs.appendFile(newFilePath, createHtmlBottom(), (err)=>{
             if (err){
                 console.log(err);
             }
         });
-    }, 1000);
+    }, 2000);
     
 }
 // start the command-line prompts
