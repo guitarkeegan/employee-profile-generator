@@ -2,7 +2,7 @@ const inquirer = require("inquirer")
 const fs = require("fs");
 const _ = require("lodash");
 const {Employee, Manager, Engineer, Intern} = require("./lib/classes");
-const {createHtmlTop, createCard, createHtmlBottom} = require("./src/template-helper");
+const {createHtmlTop, createCard, createHtmlBottom, htmlTemplate} = require("./src/template-helper");
 const { setTimeout } = require("timers");
 // employee objects will be stored here
 const employees = []
@@ -11,7 +11,8 @@ managerQuestions = [
     {
         type: "input",
         name: "managerName",
-        message: "Who is the team manager? "
+        message: "Who is the team manager? ", 
+        default: "John Dow"
     }, 
     {
         type: "input",
@@ -70,7 +71,8 @@ const engineerQuestion = [
     {
         type: "input",
         message: "What is your employee's name? ",
-        name: "empName"
+        name: "empName",
+        default: "Bilbo Bagpipe Jones"
     },
     ...initialQuestions,
     {
@@ -84,7 +86,8 @@ const internQuestions = [
     {
         type: "input",
         name: "intName",
-        message: "What is the intern's name? "
+        message: "What is the intern's name? ",
+        default: "Peeon"
     }, 
     ...initialQuestions,
     {
@@ -152,28 +155,11 @@ function internSetup(){
 // will use the template-helper.js to create the html file
 function createHtml(){
     const newFilePath = "./dist/team-directory.html"
-    fs.writeFile(newFilePath, createHtmlTop(), (err)=>{
+    fs.writeFile(newFilePath, htmlTemplate(employees), (err) => {
         if (err){
             console.log(err);
         }
     });
-    employees.forEach(employee=>{
-        fs.appendFile(newFilePath, createCard(employee), (err)=>{
-            if (err){
-                console.log(err);
-            }
-        });
-
-    });
-    // 😭😭😭😭😭😭😭😭😭😭😭
-    setTimeout(()=>{
-        fs.appendFile(newFilePath, createHtmlBottom(), (err)=>{
-            if (err){
-                console.log(err);
-            }
-        });
-    }, 2000);
-    
 }
 // start the command-line prompts
 start()
